@@ -1,0 +1,1497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Feane</title>
+<link rel="icon" type="image/png" href="img/offer2.jpg">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Icons -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+<style>
+/* ================= GLOBAL ================= */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+:root {
+  --yellow: #fbbd1f;
+  --dark-bg: radial-gradient(circle at right, #2b2f32, #000);
+}
+
+/* ================= NAVBAR ================= */
+.navbar-custom {
+  width:100%;
+  background: var(--dark-bg);
+  padding: 20px 20px;
+  position: fixed;
+  z-index: 1000;
+  justify-content: space-evenly;
+}
+
+.logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 32px;
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ================= DESKTOP MENU ================= */
+.nav-links a {
+  color: #fff;
+  margin: 0 18px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.3s;
+}
+
+.nav-links a.active {
+  color: var(--yellow);
+}
+
+.nav-links a:hover {
+  color: var(--yellow);
+}
+
+.nav-links:hover a.active:not(:hover) {
+  color: #fff;
+}
+
+/* ================= ICONS ================= */
+.nav-icons i {
+  color: #fff;
+  font-size: 18px;
+  margin-left: 18px;
+  cursor: pointer;
+}
+
+.order-btn.top{
+  background: var(--yellow);
+  color: #fff;
+  border-radius: 30px;
+  padding: 10px 22px;
+  margin-left: 20px;
+  border: none;
+  font-weight: 500;
+}
+
+/* ================= HAMBURGER ================= */
+.hamburger {
+  width: 30px;
+  height: 22px;
+  position: relative;
+  cursor: pointer;
+  display: none;
+  transition: transform 0.4s ease;
+}
+
+.hamburger span {
+  position: absolute;
+  width: 100%;
+  height: 3px;
+  background: #fff;
+  left: 0;
+  transition: 0.4s;
+}
+
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 9px; }
+.hamburger span:nth-child(3) { top: 18px; }
+
+.hamburger.active {
+  transform: rotate(180deg);
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg);
+  top: 9px;
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg);
+  top: 9px;
+}
+
+/* ================= MOBILE MENU ================= */
+.mobile-menu {
+  display: none;
+  background: var(--dark-bg);
+  padding: 30px 20px;
+  text-align: center;
+  position: fixed;     
+  top: 80px;               
+  left: 0;
+  width: 100%;
+  z-index: 9999; 
+}
+
+.mobile-menu a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-size: 20px;
+  margin: 18px 0;
+  transition: color 0.3s;
+}
+
+.mobile-menu a.active {
+  color: var(--yellow);
+}
+
+.mobile-menu a:hover {
+  color: var(--yellow);
+}
+
+.mobile-menu:hover a.active:not(:hover) {
+  color: #fff;
+}
+
+.mobile-icons {
+  margin-top: 20px;
+}
+
+.mobile-icons i {
+  color: #fff;
+  font-size: 18px;
+  margin: 0 12px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 991px) {
+  .navbar-custom {
+   padding: 20px 20px;
+   justify-content: space-between;
+  }
+  .nav-links,
+  .nav-icons {
+    display: none;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .mobile-menu.show {
+    display: block;
+    animation: slideDown 0.35s ease;
+  }
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================= HERO SECTION ================= */
+.hero-section {
+  position: relative;
+  min-height: 90vh;
+  background-image: url("img/hero-bg.jpg");
+  background-size: cover;
+  background-position: center right;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+/* optional dark overlay like image 
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  z-index: 1;
+}*/
+
+.hero-content {
+  position: relative;
+  z-index: 2;
+  padding-left: 80px;
+  color: #fff;
+}
+
+.hero-slider {
+  position: relative;
+  max-width: 600px;
+}
+
+.hero-slide {
+  position: absolute;
+  opacity: 0;
+  transform: translateX(40px);
+  transition: all 0.6s ease;
+}
+
+.hero-slide.active {
+  position: relative;
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero-slide h1 {
+  font-family: cursive;
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.hero-slide p {
+  font-size: 15px;
+  line-height: 1.8;
+  margin-bottom: 30px;
+}
+
+.hero-btn {
+  background: #fbbd1f;
+  border: none;
+  color: #fff;
+  padding: 12px 36px;
+  border-radius: 30px;
+  font-size: 16px;
+}
+
+/* DOTS */
+.hero-dots {
+  margin-top: 120px;
+}
+
+.hero-dot {
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 10px;
+  opacity: 0.4;
+}
+
+.hero-dot.active {
+  background: #fbbd1f;
+  opacity: 1;
+  transform: scale(1.6);
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .hero-section {
+    background-position: center;
+  }
+}
+@media (max-width: 991px) {
+  .hero-section {
+    background-position: center;
+    padding-top: 50px;
+  }
+  .hero-content {
+    padding: 20px;
+    text-align: left;
+  }
+
+  .hero-slide h1 {
+    font-size: 42px;
+  }
+
+  .hero-dots {
+    margin-top: 60px;
+  }
+}
+/*=========OFFER SECTION=============*/
+.offer-section {
+  background: #fff;
+}
+
+.offer-card {
+  background: #1f2630;
+  border-radius: 10px;
+  padding: 30px;
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  overflow: hidden;
+}
+
+/* IMAGE CIRCLE */
+.offer-img {
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 5px solid #ffbe33;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.offer-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+/* ZOOM EFFECT */
+.offer-card:hover .offer-img img {
+  transform: scale(1.15);
+}
+
+/* CONTENT */
+.offer-title {
+  font-family: 'Dancing Script', cursive;
+  color: #fff;
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.offer-discount {
+  color: #fff;
+  font-size: 42px;
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-family: 'Dancing Script', cursive;
+}
+
+.offer-discount span {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+/* BUTTON */
+.order-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #ffbe33;
+  color: #fff;
+  padding: 10px 26px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: 500;
+  transition: background 0.3s;
+  margin: 0;
+}
+
+.order-btn:hover {
+  background: #e6a500;
+  color: #fff;
+}
+@media (max-width: 440px) {
+
+  .offer-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  .offer-img {
+    width: 140px;
+    height: 140px;
+    margin-bottom: 15px;
+  }
+  .offer-content {
+    width: 100%;
+  }
+  .offer-title {
+    font-size: 22px;
+  }
+  .offer-discount {
+    font-size: 34px;
+  }
+  .order-btn {
+    justify-content: center;
+  }
+}
+/*=============MENU SECTION==================*/
+.menu-section {
+  padding: 100px 0;
+  background: #fff;
+}
+
+.menu-title {
+  text-align: center;
+  font-family: cursive;
+  font-size: 42px;
+  margin-bottom: 30px;
+}
+
+/* FILTER */
+.menu-filter {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.menu-filter button {
+  background: none;
+  border: none;
+  margin: 0 12px;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 8px 22px;
+  border-radius: 30px;
+}
+
+.menu-filter button.active {
+  background: #1f2933;
+  color: #fff;
+}
+
+/* CARD */
+.menu-card {
+  border-radius: 25px;
+  overflow: hidden;
+  
+}
+
+.menu-img {
+  background: #f2f2f2;
+  text-align: center;
+  padding: 40px;
+  height: 220px;                 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-img img {
+  max-width: 100%;
+  max-height: 145px;
+  object-fit: contain;
+  transition: transform 0.5s;
+}
+
+.menu-card:hover .menu-img img {
+  transform: scale(1.15);
+}
+
+.menu-info {
+  background: #1f2933;
+  color: #fff;
+  padding: 30px;
+}
+
+.menu-info h4 {
+  margin-bottom: 10px;
+}
+
+.menu-info p {
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.menu-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.menu-bottom button {
+  background: #fbbd1f;
+  border: none;
+  border-radius: 50%;
+  width: 45px;
+  height: 45px;
+  font-size: 18px;
+  color: white;
+}
+
+/* SMOOTH FILTER TRANSITION */
+.menu-item {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+
+.menu-item.hide {
+  opacity: 0;
+  transform: scale(0.9);
+  pointer-events: none;
+  position: absolute;
+}
+
+.menu-items {
+  position: relative;
+}
+.more-menu-btn {
+  display: inline-block;
+  padding: 12px 35px;
+  background: #ffbe33; /* same theme color */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-radius: 30px;
+  text-decoration: none;
+  transition: 0.3s ease;
+}
+
+.more-menu-btn:hover {
+  background: #e69c00;
+  color: #fff;
+}
+
+/* RESPONSIVE */
+@media(max-width:744px){
+  .menu-items {
+   display: grid;
+   grid-template-columns: 1fr 1fr;
+  }
+}
+@media(max-width:440px){
+  .menu-items {
+   display: grid;
+   grid-template-columns: 1fr;
+  }
+}
+
+/*=======ABOUT SECTION=========*/
+.about-section {
+  background-color: #222831;
+  padding: 50px 0;
+}
+
+/* IMAGE */
+.about-image img {
+  max-width: 80%;
+}
+
+/* CONTENT */
+.about-content h2 {
+  font-family: 'Pacifico', cursive;
+  color: #fff;
+  font-size: 42px;
+  margin-bottom: 20px;
+}
+
+.about-content p {
+  color: #fff;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.about-btn {
+  display: inline-block;
+  padding: 12px 36px;
+  background: #ffbe33;
+  color: #fff;
+  border-radius: 30px;
+  text-decoration: none;
+}
+
+/* MOBILE SPACING */
+@media (max-width: 744px) {
+  .about-content {
+    text-align: center;
+  }
+
+  .about-image {
+    margin-top: 30px;
+    text-align: center;
+  }
+
+  .about-section {
+    padding: 70px 0;
+  }
+}
+/*=========CONTACT SECTION=============*/
+.book-table-section {
+  padding: 90px 0;
+  overflow: hidden;
+}
+
+/* Decorative images */
+.decor-img {
+  position: absolute;
+  width: 140px;
+  animation: float 6s ease-in-out infinite;
+}
+
+.decor-left {
+  left: 5%;
+  top: 20%;
+}
+
+.decor-right {
+  right: 5%;
+  bottom: 15%;
+}
+
+@keyframes float {
+  0%,100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}
+
+/* Form box */
+.book-table-box {
+  background: rgba(44, 50, 61, 0.95);
+  padding: 45px;
+  border-radius: 20px;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+}
+
+.section-title {
+  text-align: center;
+  font-family: 'Pacifico', cursive;
+  color: #fff;
+  font-size: 38px;
+  margin-bottom: 35px;
+}
+
+/* Inputs */
+.custom-input {
+  height: 52px;
+  border-radius: 30px;
+  padding: 0 20px;
+  border: none;
+  background: #fff;
+  font-size: 15px;
+}
+
+.custom-input:focus {
+  box-shadow: none;
+}
+
+/* Button */
+.book-btn {
+  background: #ffbe33;
+  color: #fff;
+  border: none;
+  padding: 13px 48px;
+  border-radius: 30px;
+  font-size: 16px;
+  transition: 0.3s;
+}
+
+.book-btn:hover {
+  background: #e69c00;
+  transform: translateY(-2px);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .decor-img {
+    display: none;
+  }
+
+  .book-table-box {
+    padding: 30px 22px;
+  }
+
+  .section-title {
+    font-size: 32px;
+  }
+}
+/*=========TESTIMONIAL SECTION============*/
+.testimonial-section {
+  padding: 80px 0;
+  text-align: center;
+}
+
+.testimonial-title {
+  font-family: 'Pacifico', cursive;
+  color: #fff;
+  font-size: 38px;
+  margin-bottom: 50px;
+  color: #222831;
+}
+
+/* SLIDER */
+.testimonial-slider {
+  position: relative;
+  max-width: 700px;
+  margin: auto;
+}
+
+/* CARD */
+.testimonial-card {
+  display: none;
+  background: #2c323d;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 12px 35px rgba(0,0,0,0.4);
+  animation: fade 0.6s ease;
+}
+
+.testimonial-card.active {
+  display: block;
+}
+
+@keyframes fade {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.testimonial-text {
+  color: #fff;
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.testimonial-text::before {
+  content: "“";
+  font-size: 60px;
+  color: #ffbe33;
+  position: absolute;
+  top: -25px;
+  left: -10px;
+}
+
+/* CUSTOMER */
+.customer-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+}
+
+.customer-info img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: 3px solid #ffbe33;
+}
+
+.customer-info h5 {
+  color: #fff;
+  margin: 0;
+}
+
+.customer-info span {
+  color: #ccc;
+  font-size: 14px;
+}
+
+/* DOTS */
+.testimonial-dots {
+  margin-top: 30px;
+}
+
+.testimonial-dots .testimonial-dot {
+  width: 12px;
+  height: 12px;
+  background: #fff;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 6px;
+  opacity: 0.4;
+  cursor: pointer;
+  transition: 0.3s;
+  background-color: #222831;
+}
+
+.testimonial-dots .testimonial-dot.active {
+  background: #ffbe33;
+  opacity: 1;
+  transform: scale(1.6);
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .testimonial-card {
+    padding: 30px 20px;
+  }
+
+  .testimonial-title {
+    font-size: 32px;
+  }
+}
+/*========FOOTER SECTION========*/
+.feane-footer {
+  background-color: #222831;
+  padding: 70px 0 30px;
+  color: #ffffff;
+  font-family: 'Poppins', sans-serif;
+}
+
+.footer-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 28px;
+  margin-bottom: 20px;
+}
+
+.footer-contact {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-contact li {
+  margin-bottom: 12px;
+  font-size: 16px;
+}
+
+.footer-contact i {
+  margin-right: 10px;
+}
+
+.footer-logo {
+  font-family: 'Dancing Script', cursive;
+  font-size: 40px;
+  margin-bottom: 15px;
+}
+
+.footer-text {
+  font-size: 15px;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  color: #dddddd;
+}
+
+.footer-social a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  background: #ffffff;
+  color: #222831;
+  border-radius: 50%;
+  margin: 0 6px;
+  font-size: 18px;
+  transition: all 0.3s ease;
+}
+
+.footer-social a:hover {
+  background: #ffbe33;
+  color: #ffffff;
+}
+
+.footer-hours {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.footer-bottom {
+  margin-top: 40px;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.footer-bottom p {
+  margin: 5px 0;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 768px) {
+  .feane-footer {
+    padding: 50px 0 25px;
+  }
+
+  .footer-logo {
+    font-size: 36px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar-custom d-flex align-items-center">
+  <a href="#" class="logo">Feane</a>
+
+  <div class="nav-links">
+    <a href="#hero" class="active">HOME</a>
+    <a href="#menu">MENU</a>
+    <a href="#about">ABOUT</a>
+    <a href="#contact">BOOK TABLE</a>
+  </div>
+
+  <div class="d-flex align-items-center">
+    <div class="nav-icons">
+      <i class="bi bi-person"></i>
+      <i class="bi bi-cart"></i>
+      <i class="bi bi-search"></i>
+      <button class="order-btn top">Order Online</button>
+    </div>
+
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#hero" class="active">HOME</a>
+  <a href="#menu">MENU</a>
+  <a href="#about">ABOUT</a>
+  <a href="#contact">BOOK TABLE</a>
+
+  <div class="mobile-icons">
+    <i class="bi bi-person"></i>
+    <i class="bi bi-cart"></i>
+    <i class="bi bi-search"></i>
+  </div>
+
+  <div class="mt-3">
+    <button class="order-btn">Order Online</button>
+  </div>
+</div>
+
+<!----------HERO SECTION---------------->
+<section class="hero-section" id="hero">
+  <div class="hero-overlay"></div>
+
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- LEFT CONTENT -->
+      <div class="col-lg-6 hero-content">
+
+        <div class="hero-slider">
+
+          <div class="hero-slide active">
+            <h1>Fast Food Restaurant</h1>
+            <p>
+              Doloremque, itaque aperiam facilis rerum, commodi, temporibus
+              sapiente ad mollitia laborum quam quisquam esse error unde.
+              Tempora ex doloremque, labore, sunt repellat dolore, iste magni
+              quos nihil ducimus libero ipsam.
+            </p>
+            <button class="hero-btn">Order Now</button>
+          </div>
+
+          <div class="hero-slide">
+            <h1>Delicious Burger</h1>
+            <p>
+              Doloremque, itaque aperiam facilis rerum, commodi, temporibus
+              sapiente ad mollitia laborum quam quisquam esse error unde.
+              Tempora ex doloremque, labore, sunt repellat dolore, iste magni
+              quos nihil ducimus libero ipsam.
+            </p>
+            <button class="hero-btn">Order Now</button>
+          </div>
+
+          <div class="hero-slide">
+            <h1>Best Fast Food</h1>
+            <p>
+              Doloremque, itaque aperiam facilis rerum, commodi, temporibus
+              sapiente ad mollitia laborum quam quisquam esse error unde.
+              Tempora ex doloremque, labore, sunt repellat dolore, iste magni
+              quos nihil ducimus libero ipsam.
+            </p>
+            <button class="hero-btn">Order Now</button>
+          </div>
+
+        </div>
+
+        <!-- DOTS -->
+        <div class="hero-dots">
+          <span class="hero-dot active"></span>
+          <span class="hero-dot"></span>
+          <span class="hero-dot"></span>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!---------------OFFER SECTION---------------------------->
+<section class="offer-section py-5">
+  <div class="container">
+    <div class="row g-4">
+
+      <!-- LEFT CARD -->
+      <div class="col-lg-6">
+        <div class="offer-card">
+          <div class="offer-img">
+            <img src="img/offer1.jpg" alt="offer-Burger">
+          </div>
+
+          <div class="offer-content">
+            <h5 class="offer-title">Tasty Thursdays</h5>
+            <h2 class="offer-discount">20% <span>Off</span></h2>
+
+            <a href="#" class="order-btn">
+              Order Now
+              <i class="bi bi-cart"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT CARD -->
+      <div class="col-lg-6">
+        <div class="offer-card">
+          <div class="offer-img">
+            <img src="img/offer2.jpg" alt="offer-Pizza">
+          </div>
+
+          <div class="offer-content">
+            <h5 class="offer-title">Pizza Days</h5>
+            <h2 class="offer-discount">15% <span>Off</span></h2>
+
+            <a href="#" class="order-btn">
+              Order Now
+              <i class="bi bi-cart"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<!---------------MENU SECTION---------------------->
+<section class="menu-section" id="menu">
+  <div class="container">
+
+    <h2 class="menu-title">Our Menu</h2>
+
+    <!-- FILTER MENU -->
+    <div class="menu-filter">
+      <button class="active" data-filter="all">All</button>
+      <button data-filter="burger">Burger</button>
+      <button data-filter="pizza">Pizza</button>
+      <button data-filter="pasta">Pasta</button>
+      <button data-filter="fries">Fries</button>
+    </div>
+
+    <!-- MENU CARDS -->
+    <div class="row g-4 menu-items">
+
+      <!-- CARD 1 -->
+      <div class="col-lg-4 col-md-6 menu-item pizza">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu1.png">
+          </div>
+          <div class="menu-info">
+            <h4>Delicious Pizza</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$15</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="col-lg-4 col-md-6 menu-item burger">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu2.png">
+          </div>
+          <div class="menu-info">
+            <h4>Delicious Burger</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$20</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="col-lg-4 col-md-6 menu-item pizza">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu3.png">
+          </div>
+          <div class="menu-info">
+            <h4>Italian Pizza</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$17</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 4 -->
+      <div class="col-lg-4 col-md-6 menu-item pasta">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu4.png">
+          </div>
+          <div class="menu-info">
+            <h4>Delicious Pasta</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$18</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 5 -->
+      <div class="col-lg-4 col-md-6 menu-item fries">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu5.png">
+          </div>
+          <div class="menu-info">
+            <h4>French Fries</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$10</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 6 -->
+      <div class="col-lg-4 col-md-6 menu-item pizza">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu6.png">
+          </div>
+          <div class="menu-info">
+            <h4>Cheese Pizza</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$16</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+	  
+	   <!-- CARD 7 -->
+      <div class="col-lg-4 col-md-6 menu-item burger">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu7.png">
+          </div>
+          <div class="menu-info">
+            <h4>Tasty Burger</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$16</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+	  
+	   <!-- CARD 8 -->
+      <div class="col-lg-4 col-md-6 menu-item burger">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu8.png">
+          </div>
+          <div class="menu-info">
+            <h4>Tasty Burger</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$16</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+	  
+	   <!-- CARD 9 -->
+      <div class="col-lg-4 col-md-6 menu-item pasta">
+        <div class="menu-card">
+          <div class="menu-img">
+            <img src="img/menu9.png">
+          </div>
+          <div class="menu-info">
+            <h4>Cheese Pasta</h4>
+            <p>Veniam debitis quaerat officiis quasi cupiditate quo.</p>
+            <div class="menu-bottom">
+              <span>$16</span>
+              <button><i class="bi bi-cart4"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+       
+    </div>
+		<div class="text-center mt-5">
+		  <a href="#" class="more-menu-btn">More Menu</a>
+		</div>
+  </div>
+</section>
+
+<!------------ABOUT SECTION--------------->
+<section class="about-section" id="about">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- ABOUT CONTENT (TOP ON MOBILE) -->
+      <div class="col-lg-6 order-1 order-lg-2 about-content">
+        <h2>We Are Feane</h2>
+        <p>
+          There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.
+		  If you are going to use a passage of Lorem Ipsum, you need to be sure there isn't anything embarrassing hidden in the middle of text.
+        </p>
+        <a href="#" class="about-btn">Read More</a>
+      </div>
+
+      <!-- BURGER IMAGE (BOTTOM ON MOBILE) -->
+      <div class="col-lg-6 order-2 order-lg-1 about-image">
+        <img src="img/about-img.png" alt="Burger Image">
+      </div>
+
+    </div>
+  </div>
+</section>
+<!-----------CONTACT SECTION------------->
+<section class="book-table-section position-relative" id="contact">
+  <!-- Decorative Images -->
+  <img src="img/menu8.png" class="decor-img decor-left" alt="">
+  <img src="img/menu9.png" class="decor-img decor-right" alt="">
+
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-7">
+
+        <div class="book-table-box">
+          <h2 class="section-title">Book a Table</h2>
+
+          <form>
+            <div class="row g-3">
+
+              <div class="col-md-6">
+                <input type="text" class="form-control custom-input" placeholder="Your Name">
+              </div>
+
+              <div class="col-md-6">
+                <input type="text" class="form-control custom-input" placeholder="Phone Number">
+              </div>
+
+              <div class="col-md-6">
+                <input type="email" class="form-control custom-input" placeholder="Your Email">
+              </div>
+
+              <div class="col-md-6">
+                <select class="form-control custom-input">
+                  <option>How many person?</option>
+                  <option>1 Person</option>
+                  <option>2 Persons</option>
+                  <option>3 Persons</option>
+                  <option>4+ Persons</option>
+                </select>
+              </div>
+
+              <div class="col-12">
+                <input type="date" class="form-control custom-input">
+              </div>
+
+              <div class="col-12 text-center">
+                <button type="submit" class="book-btn">Book Now</button>
+              </div>
+
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+<!--------------TESTIMONIAL SECTION------------------>
+<section class="testimonial-section">
+  <div class="container">
+    <h2 class="testimonial-title">What Says Our Customers</h2>
+
+    <div class="testimonial-slider">
+
+      <!-- CARD 1 -->
+      <div class="testimonial-card active">
+        <p class="testimonial-text">
+          “The food was absolutely delicious and the service was outstanding.
+          I’ll definitely come back again with my family!”
+        </p>
+        <div class="customer-info">
+          <img src="img/test-person1.webp" alt="Customer">
+          <div>
+            <h5>Rohit Sharma</h5>
+            <span>Food Blogger</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 2 -->
+      <div class="testimonial-card">
+        <p class="testimonial-text">
+          “Best burgers in town! Fresh ingredients, amazing taste, and quick
+          service. Highly recommended.”
+        </p>
+        <div class="customer-info">
+          <img src="img/test-person2.webp" alt="Customer">
+          <div>
+            <h5>Ananya Verma</h5>
+            <span>Customer</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- CARD 3 -->
+      <div class="testimonial-card">
+        <p class="testimonial-text">
+          “The ambience, the food, and the staff—everything was perfect.
+          One of my favorite restaurants!”
+        </p>
+        <div class="customer-info">
+          <img src="img/test-person3.png" alt="Customer">
+          <div>
+            <h5>Mohit Gupta</h5>
+            <span>Regular Guest</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- DOTS -->
+    <div class="testimonial-dots">
+      <span class="testimonial-dot active" onclick="showTestimonial(0)"></span>
+      <span class="testimonial-dot" onclick="showTestimonial(1)"></span>
+      <span class="testimonial-dot" onclick="showTestimonial(2)"></span>
+    </div>
+
+  </div>
+</section>
+<!------------FOOTER SECTION------------->
+<footer class="feane-footer">
+  <div class="container">
+    <div class="row text-center">
+
+      <!-- Contact Us -->
+      <div class="col-md-4 mb-4 mb-md-0 text-center">
+        <h4 class="footer-title">Contact Us</h4>
+        <ul class="footer-contact">
+          <li><i class="bi bi-geo-alt-fill"></i> Location</li>
+          <li><i class="bi bi-telephone-fill"></i> Call +01 1234567890</li>
+          <li><i class="bi bi-envelope-fill"></i> demo@gmail.com</li>
+        </ul>
+      </div>
+
+      <!-- Center Brand -->
+      <div class="col-md-4 text-center mb-4 mb-md-0">
+        <h2 class="footer-logo">Feane</h2>
+        <p class="footer-text">
+          Necessary, making this the first true generator
+          on the Internet. It uses a dictionary of over 200
+          Latin words, combined with
+        </p>
+
+        <div class="footer-social">
+          <a href="#"><i class="bi bi-facebook"></i></a>
+          <a href="#"><i class="bi bi-twitter"></i></a>
+          <a href="#"><i class="bi bi-linkedin"></i></a>
+          <a href="#"><i class="bi bi-instagram"></i></a>
+          <a href="#"><i class="bi bi-pinterest"></i></a>
+        </div>
+      </div>
+
+      <!-- Opening Hours -->
+      <div class="col-md-4 text-center">
+        <h4 class="footer-title">Opening Hours</h4>
+        <p class="footer-hours">Everyday</p>
+        <p class="footer-hours">10.00 Am - 10.00 Pm</p>
+      </div>
+
+    </div>
+
+    <!-- Bottom Text -->
+    <div class="footer-bottom text-center">
+      <p>© 2025 All Rights Reserved By Html Templates</p>
+      <p>© Distributed By Kartikey Gupta</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+  /* ================= MOBILE MENU ================= */
+  const hamburger = document.getElementById("hamburger");
+  const mobileMenu = document.getElementById("mobileMenu");
+
+  if (hamburger && mobileMenu) {
+    hamburger.addEventListener("click", () => {
+      hamburger.classList.toggle("active");
+      mobileMenu.classList.toggle("show");
+    });
+  }
+
+  /* ================= HERO SLIDER ================= */
+  let currentSlide = 0;
+  const slides = document.querySelectorAll('.hero-slide');
+  const heroDots = document.querySelectorAll('.hero-dot');
+
+  function showSlide(index) {
+    slides.forEach((slide, i) => {
+      slide.classList.toggle('active', i === index);
+      heroDots[i].classList.toggle('active', i === index);
+    });
+  }
+
+  if (slides.length > 0) {
+    setInterval(() => {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }, 4000);
+  }
+
+  /* ================= MENU FILTER ================= */
+  const filterButtons = document.querySelectorAll('.menu-filter button');
+  const items = document.querySelectorAll('.menu-item');
+
+  filterButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+      filterButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const filter = btn.getAttribute('data-filter');
+
+      items.forEach(item => {
+        if (filter === 'all' || item.classList.contains(filter)) {
+          item.classList.remove('hide');
+        } else {
+          item.classList.add('hide');
+        }
+      });
+
+    });
+  });
+
+  /* ================= TESTIMONIAL SLIDER ================= */
+  let testimonialIndex = 0;
+  const testimonialCards = document.querySelectorAll('.testimonial-card');
+  const testimonialDots = document.querySelectorAll('.testimonial-dot');
+
+  function showTestimonial(i) {
+    testimonialCards.forEach(card => card.classList.remove('active'));
+    testimonialDots.forEach(dot => dot.classList.remove('active'));
+
+    testimonialCards[i].classList.add('active');
+    testimonialDots[i].classList.add('active');
+    testimonialIndex = i;
+  }
+
+  if (testimonialCards.length > 0) {
+    setInterval(() => {
+      testimonialIndex = (testimonialIndex + 1) % testimonialCards.length;
+      showTestimonial(testimonialIndex);
+    }, 5000);
+  }
+
+});
+</script>
+
+
+</body>
+</html>
