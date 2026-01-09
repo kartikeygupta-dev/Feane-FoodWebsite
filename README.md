@@ -10,7 +10,7 @@ This project focuses on **clean UI design**, **responsive layout**, and **intera
 ## 🚀 Live Demo
 
 🔗 Website: https://feanefood-website.netlify.app/ 
-🔗 GitHub Repository: https://github.com/kartikeygupta-dev
+🔗 GitHub Repository: https://github.com/kartikeygupta-dev/Feane-FoodWebsite.git
 
 ---
 
@@ -68,4 +68,4 @@ Mobile-first design principles are followed to ensure a smooth user experience o
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/kartikeygupta-dev
+   git clone https://github.com/kartikeygupta-dev/Feane-FoodWebsite.git
